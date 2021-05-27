@@ -114,7 +114,7 @@ function (_React$Component) {
         return d.v;
       });
       var revenue_per_employee = revenue_per_employee_ts.map(function (d) {
-        return d.v / 1000;
+        return d.v;
       });
       var data = {
         // labels: number_of_employees_ts.map(d => dayjs.utc(d.ts).format('YYYYMM')),
@@ -146,7 +146,7 @@ function (_React$Component) {
           pointRadius: 3,
           pointHoverRadius: 2,
           data: revenue_per_employee,
-          label: 'Revenue Per Employee (k)'
+          label: 'Revenue Per Employee'
         }]
       };
       var options = {

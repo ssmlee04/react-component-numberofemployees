@@ -50,7 +50,7 @@ export class NumberOfEmployees extends React.Component {
     const number_of_employees_ts = profile.numbers.number_of_employees_ts || [];
     const revenue_per_employee_ts = profile.numbers.revenue_per_employee_ts || [];
     const number_of_employees = number_of_employees_ts.map(d => d.v);
-    const revenue_per_employee = revenue_per_employee_ts.map(d => d.v / 1000);
+    const revenue_per_employee = revenue_per_employee_ts.map(d => d.v);
     const data = {
       // labels: number_of_employees_ts.map(d => dayjs.utc(d.ts).format('YYYYMM')),
       labels: number_of_employees_ts.map(d => dayjs(d.ts).format('YYYYMM')),
@@ -79,7 +79,7 @@ export class NumberOfEmployees extends React.Component {
         pointRadius: 3,
         pointHoverRadius: 2,
         data: revenue_per_employee,
-        label: 'Revenue Per Employee (k)'
+        label: 'Revenue Per Employee'
       }]
     };
     const options = {
