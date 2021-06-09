@@ -80,7 +80,6 @@ export class NumberOfEmployees extends React.Component {
     const min = _.min(number_of_employees) || 1;
     const delta = max - min;
     const yAxisMin = delta > 0 ? Math.max(0, 2 * min - max) : 0;
-    console.log({yAxisMin})
     
     const options = {
       legend: {

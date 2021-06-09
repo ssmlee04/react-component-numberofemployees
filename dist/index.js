@@ -148,9 +148,6 @@ function (_React$Component) {
       var min = _lodash["default"].min(number_of_employees) || 1;
       var delta = max - min;
       var yAxisMin = delta > 0 ? Math.max(0, 2 * min - max) : 0;
-      console.log({
-        yAxisMin: yAxisMin
-      });
       var options = {
         legend: {
           display: false,
