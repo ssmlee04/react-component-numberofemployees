@@ -76,6 +76,11 @@ export class NumberOfEmployees extends React.Component {
       //   label: 'Revenue Per Employee'
       }]
     };
+    const max = _.max(number_of_employees) || 1;
+    const min = _.min(number_of_employees) || 1;
+    const delta = max - min;
+    const yAxisMin = delta > 0 ? Math.max(0, 2 * min - max) : 0;
+    console.log({yAxisMin})
     
     const options = {
       legend: {
@@ -107,6 +112,7 @@ export class NumberOfEmployees extends React.Component {
                 },
                 ticks: {
                   fontColor,
+                  min: yAxisMin,
                   fontSize: 12,
                     callback: function(label, index, labels) {
                       return Math.floor(label);

@@ -144,6 +144,13 @@ function (_React$Component) {
 
         }]
       };
+      var max = _lodash["default"].max(number_of_employees) || 1;
+      var min = _lodash["default"].min(number_of_employees) || 1;
+      var delta = max - min;
+      var yAxisMin = delta > 0 ? Math.max(0, 2 * min - max) : 0;
+      console.log({
+        yAxisMin: yAxisMin
+      });
       var options = {
         legend: {
           display: false,
@@ -173,6 +180,7 @@ function (_React$Component) {
             },
             ticks: {
               fontColor: fontColor,
+              min: yAxisMin,
               fontSize: 12,
               callback: function callback(label, index, labels) {
                 return Math.floor(label);
