@@ -55,15 +55,6 @@ function (_React$Component) {
   }
 
   _createClass(NumberOfEmployees, [{
-    key: "shouldComponentUpdate",
-    value: function shouldComponentUpdate(nextProps, nextState) {
-      var profile = this.props.profile;
-      if (!profile) return true;
-      if (nextState.copied) return true;
-      if (profile.ticker !== nextProps.profile.ticker) return true;
-      return false;
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this2 = this;
@@ -71,7 +62,9 @@ function (_React$Component) {
       var _this$props = this.props,
           profile = _this$props.profile,
           _this$props$imgProp = _this$props.imgProp,
-          imgProp = _this$props$imgProp === void 0 ? 'num_employees' : _this$props$imgProp;
+          imgProp = _this$props$imgProp === void 0 ? 'num_employees' : _this$props$imgProp,
+          _this$props$theme = _this$props.theme,
+          theme = _this$props$theme === void 0 ? 'light' : _this$props$theme;
       var copied = this.state.copied;
 
       if (!profile) {
@@ -116,6 +109,8 @@ function (_React$Component) {
       var revenue_per_employee = revenue_per_employee_ts.map(function (d) {
         return d.v;
       });
+      var fontColor = theme === 'light' ? '#222222' : '#dddddd';
+      var dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(0, 128, 0, 0.5)';
       var data = {
         // labels: number_of_employees_ts.map(d => dayjs.utc(d.ts).format('YYYYMM')),
         labels: number_of_employees_ts.map(function (d) {
@@ -124,34 +119,36 @@ function (_React$Component) {
         datasets: [{
           yAxisID: '1',
           type: 'line',
-          fill: false,
-          backgroundColor: 'green',
+          fill: true,
+          backgroundColor: dataColor,
           borderColor: 'green',
-          pointBackgroundColor: 'white',
+          // pointBackgroundColor: 'white',
           lineTension: 0.3,
-          borderWidth: 1.5,
+          borderWidth: 1,
           pointRadius: 3,
           pointHoverRadius: 2,
           data: number_of_employees,
-          label: 'Number Of Employees'
-        }, {
-          yAxisID: '2',
-          type: 'line',
-          fill: false,
-          backgroundColor: 'crimson',
-          borderColor: 'crimson',
-          pointBackgroundColor: 'white',
-          lineTension: 0.3,
-          borderWidth: 1.5,
-          pointRadius: 3,
-          pointHoverRadius: 2,
-          data: revenue_per_employee,
-          label: 'Revenue Per Employee'
+          label: 'Number Of Employees' // }, {
+          //   yAxisID: '2',
+          //   type: 'line',
+          //   fill: false,
+          //   backgroundColor: 'crimson',
+          //   borderColor: 'crimson',
+          //   pointBackgroundColor: 'white',
+          //   lineTension: 0.3,
+          //   borderWidth: 1.5,
+          //   pointRadius: 3,
+          //   pointHoverRadius: 2,
+          //   data: revenue_per_employee,
+          //   label: 'Revenue Per Employee'
+
         }]
       };
       var options = {
         legend: {
+          display: false,
           labels: {
+            fontColor: fontColor,
             fontSize: 12,
             boxWidth: 10
           }
@@ -159,7 +156,8 @@ function (_React$Component) {
         scales: {
           xAxes: [{
             ticks: {
-              fontSize: 12
+              fontSize: 12,
+              fontColor: fontColor
             },
             barPercentage: 0.4
           }],
@@ -168,35 +166,35 @@ function (_React$Component) {
             display: true,
             position: 'left',
             id: '1',
-            gridLines: {
-              display: false
+            gridLines: {// display: false
             },
             labels: {
               show: true
             },
             ticks: {
-              fontColor: 'green',
+              fontColor: fontColor,
               fontSize: 12,
               callback: function callback(label, index, labels) {
                 return Math.floor(label);
               }
             }
-          }, {
-            type: 'linear',
-            display: true,
-            position: 'right',
-            id: '2',
-            labels: {
-              show: true
-            },
-            ticks: {
-              fontColor: 'crimson',
-              fontSize: 12,
-              callback: function callback(label, index, labels) {
-                return Math.floor(label);
-              }
-            }
-          }]
+          } // {
+          //   type: 'linear',
+          //   display: true,
+          //   position: 'right',
+          //   id: '2',
+          //   labels: {
+          //     show: true
+          //   },
+          //   ticks: {
+          //     fontColor: 'crimson',
+          //     fontSize: 12,
+          //     callback: function(label, index, labels) {
+          //       return Math.floor(label);
+          //     }
+          //   },
+          // }
+          ]
         }
       };
       return _react["default"].createElement("div", {
@@ -206,30 +204,32 @@ function (_React$Component) {
           fontSize: 12
         }
       }, _react["default"].createElement("div", {
+        className: "theme-darkred-".concat(theme),
         style: {
-          color: 'darkred',
           fontWeight: 'bold'
         }
-      }, profile.ticker, " - ", profile.name, " ", _react["default"].createElement("span", {
-        className: "green"
-      }, "Employees and Productivity")), _react["default"].createElement(_reactChartjs.Bar, {
+      }, profile.ticker, " - ", profile.name, "\xA0", _react["default"].createElement("span", {
+        className: "theme-green-".concat(theme)
+      }, "Employees Analysis")), _react["default"].createElement(_reactChartjs.Bar, {
         data: data,
         height: 170,
         options: options
       }), _react["default"].createElement("div", {
         style: {
-          fontSize: 12
+          fontSize: 12,
+          padding: 5,
+          paddingTop: 2
         }
-      }, "Generated by ", _react["default"].createElement("span", {
-        style: {
-          color: 'darkred'
-        }
+      }, "Generated by ", _react["default"].createElement("a", {
+        href: "https://twitter.com/earningsfly",
+        target: "_blank",
+        className: "theme-darkred-".concat(theme)
       }, "@earningsfly"), " with ", _react["default"].createElement("span", {
         style: {
           fontSize: 16,
           color: 'red'
         }
-      }, "\uD83D\uDE80")));
+      }, "\u2764\uFE0F")));
     }
   }]);
 

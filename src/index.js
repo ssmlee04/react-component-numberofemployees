@@ -14,16 +14,8 @@ export class NumberOfEmployees extends React.Component {
     };
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { profile } = this.props;
-    if (!profile) return true;
-    if (nextState.copied) return true;
-    if (profile.ticker !== nextProps.profile.ticker) return true;
-    return false;
-  }
-
   render() {
-    const { profile, imgProp = 'num_employees' } = this.props;
+    const { profile, imgProp = 'num_employees', theme = 'light' } = this.props;
     const { copied } = this.state;
     if (!profile) {
       return (
@@ -51,40 +43,45 @@ export class NumberOfEmployees extends React.Component {
     const revenue_per_employee_ts = profile.numbers.revenue_per_employee_ts || [];
     const number_of_employees = number_of_employees_ts.map(d => d.v);
     const revenue_per_employee = revenue_per_employee_ts.map(d => d.v);
+    const fontColor = theme === 'light' ? '#222222' : '#dddddd';
+    const dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(0, 128, 0, 0.5)';
     const data = {
       // labels: number_of_employees_ts.map(d => dayjs.utc(d.ts).format('YYYYMM')),
       labels: number_of_employees_ts.map(d => dayjs(d.ts).format('YYYYMM')),
       datasets: [{
         yAxisID: '1',
         type: 'line',
-        fill: false,
-        backgroundColor: 'green',
+        fill: true,
+        backgroundColor: dataColor,
         borderColor: 'green',
-        pointBackgroundColor: 'white',
+        // pointBackgroundColor: 'white',
         lineTension: 0.3,
-        borderWidth: 1.5,
+        borderWidth: 1,
         pointRadius: 3,
         pointHoverRadius: 2,
         data: number_of_employees,
         label: 'Number Of Employees'
-      }, {
-        yAxisID: '2',
-        type: 'line',
-        fill: false,
-        backgroundColor: 'crimson',
-        borderColor: 'crimson',
-        pointBackgroundColor: 'white',
-        lineTension: 0.3,
-        borderWidth: 1.5,
-        pointRadius: 3,
-        pointHoverRadius: 2,
-        data: revenue_per_employee,
-        label: 'Revenue Per Employee'
+      // }, {
+      //   yAxisID: '2',
+      //   type: 'line',
+      //   fill: false,
+      //   backgroundColor: 'crimson',
+      //   borderColor: 'crimson',
+      //   pointBackgroundColor: 'white',
+      //   lineTension: 0.3,
+      //   borderWidth: 1.5,
+      //   pointRadius: 3,
+      //   pointHoverRadius: 2,
+      //   data: revenue_per_employee,
+      //   label: 'Revenue Per Employee'
       }]
     };
+    
     const options = {
       legend: {
+        display: false,
         labels: {
+          fontColor,
           fontSize: 12,
           boxWidth: 10,
         }
@@ -92,7 +89,8 @@ export class NumberOfEmployees extends React.Component {
       scales: {
         xAxes: [{
           ticks: {
-            fontSize: 12
+            fontSize: 12,
+            fontColor
           },
           barPercentage: 0.4
         }],
@@ -102,43 +100,44 @@ export class NumberOfEmployees extends React.Component {
                 position: 'left',
                 id: '1',
                 gridLines: {
-                  display: false
+                  // display: false
                 },
                 labels: {
                   show: true
                 },
                 ticks: {
-                  fontColor: 'green',
+                  fontColor,
                   fontSize: 12,
                     callback: function(label, index, labels) {
                       return Math.floor(label);
                     }
                 },
               },
-              {
-                type: 'linear',
-                display: true,
-                position: 'right',
-                id: '2',
-                labels: {
-                  show: true
-                },
-                ticks: {
-                  fontColor: 'crimson',
-                  fontSize: 12,
-                  callback: function(label, index, labels) {
-                    return Math.floor(label);
-                  }
-                },
-              }]
+              // {
+              //   type: 'linear',
+              //   display: true,
+              //   position: 'right',
+              //   id: '2',
+              //   labels: {
+              //     show: true
+              //   },
+              //   ticks: {
+              //     fontColor: 'crimson',
+              //     fontSize: 12,
+              //     callback: function(label, index, labels) {
+              //       return Math.floor(label);
+              //     }
+              //   },
+              // }
+              ]
       },
     };
 
     return (
       <div style={{ width: '100%', padding: 5, fontSize: 12 }}>
-        <div style={{ color: 'darkred', fontWeight: 'bold' }}>{profile.ticker} - {profile.name} <span className='green'>Employees and Productivity</span></div>
+        <div className={`theme-darkred-${theme}`} style={{ fontWeight: 'bold' }}>{profile.ticker} - {profile.name}&nbsp;<span className={`theme-green-${theme}`}>Employees Analysis</span></div>
         <Bar data={data} height={170} options={options} />
-        <div style={{ fontSize: 12 }}>Generated by <span style={{ color: 'darkred' }}>@earningsfly</span> with <span style={{ fontSize: 16, color: 'red' }}>🚀</span></div>
+        <div style={{ fontSize: 12, padding: 5, paddingTop: 2 }}>Generated by <a href='https://twitter.com/earningsfly' target='_blank' className={`theme-darkred-${theme}`}>@earningsfly</a> with <span style={{ fontSize: 16, color: 'red' }}>❤️</span></div>
       </div>
     );
   }
