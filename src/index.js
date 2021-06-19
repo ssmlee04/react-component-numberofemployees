@@ -44,7 +44,8 @@ export class NumberOfEmployees extends React.Component {
     const number_of_employees = number_of_employees_ts.map(d => d.v);
     const revenue_per_employee = revenue_per_employee_ts.map(d => d.v);
     const fontColor = theme === 'light' ? '#222222' : '#dddddd';
-    const dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(0, 128, 0, 0.5)';
+    const dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(64, 255, 0, 0.5)';
+    const gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
     const data = {
       // labels: number_of_employees_ts.map(d => dayjs.utc(d.ts).format('YYYYMM')),
       labels: number_of_employees_ts.map(d => dayjs(d.ts).format('YYYYMM')),
@@ -96,45 +97,48 @@ export class NumberOfEmployees extends React.Component {
             fontSize: 12,
             fontColor
           },
+          gridLines: {
+            color: gridColor
+          },
           barPercentage: 0.4
         }],
         yAxes: [{
-                type: 'linear',
-                display: true,
-                position: 'left',
-                id: '1',
-                gridLines: {
-                  // display: false
-                },
-                labels: {
-                  show: true
-                },
-                ticks: {
-                  fontColor,
-                  min: yAxisMin,
-                  fontSize: 12,
-                    callback: function(label, index, labels) {
-                      return Math.floor(label);
-                    }
-                },
-              },
-              // {
-              //   type: 'linear',
-              //   display: true,
-              //   position: 'right',
-              //   id: '2',
-              //   labels: {
-              //     show: true
-              //   },
-              //   ticks: {
-              //     fontColor: 'crimson',
-              //     fontSize: 12,
-              //     callback: function(label, index, labels) {
-              //       return Math.floor(label);
-              //     }
-              //   },
-              // }
-              ]
+          type: 'linear',
+          display: true,
+          position: 'left',
+          id: '1',
+          gridLines: {
+            color: gridColor
+          },
+          labels: {
+            show: true
+          },
+          ticks: {
+            fontColor,
+            min: yAxisMin,
+            fontSize: 12,
+              callback: function(label, index, labels) {
+                return Math.floor(label);
+              }
+          },
+        },
+        // {
+        //   type: 'linear',
+        //   display: true,
+        //   position: 'right',
+        //   id: '2',
+        //   labels: {
+        //     show: true
+        //   },
+        //   ticks: {
+        //     fontColor: 'crimson',
+        //     fontSize: 12,
+        //     callback: function(label, index, labels) {
+        //       return Math.floor(label);
+        //     }
+        //   },
+        // }
+        ]
       },
     };
 

@@ -110,7 +110,8 @@ function (_React$Component) {
         return d.v;
       });
       var fontColor = theme === 'light' ? '#222222' : '#dddddd';
-      var dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(0, 128, 0, 0.5)';
+      var dataColor = theme === 'light' ? 'rgba(0, 128, 0, 0.5)' : 'rgba(64, 255, 0, 0.5)';
+      var gridColor = theme === 'light' ? 'rgba(80, 80, 80, 0.1)' : 'rgba(255, 255, 255, 0.2)';
       var data = {
         // labels: number_of_employees_ts.map(d => dayjs.utc(d.ts).format('YYYYMM')),
         labels: number_of_employees_ts.map(function (d) {
@@ -163,6 +164,9 @@ function (_React$Component) {
               fontSize: 12,
               fontColor: fontColor
             },
+            gridLines: {
+              color: gridColor
+            },
             barPercentage: 0.4
           }],
           yAxes: [{
@@ -170,7 +174,8 @@ function (_React$Component) {
             display: true,
             position: 'left',
             id: '1',
-            gridLines: {// display: false
+            gridLines: {
+              color: gridColor
             },
             labels: {
               show: true
